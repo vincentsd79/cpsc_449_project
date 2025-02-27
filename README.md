@@ -3,11 +3,11 @@ We propose to develop an e-commerce website that allows users to browse products
 
 Technical Stack:
 - Front-End:
-    React
+    React.js 
     HTML, CSS, Javascript
     Redux 
 		
 - Back-End:
     Firebase (Database)
-    Stripe (Payment function)
+    Stripe API (Payment processing)
     Google Cloud API (Other functions)
