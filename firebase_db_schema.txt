@@ -1,0 +1,115 @@
+// Firebase schema using Cloud Firestore(NoSQL)
+// This is a NoSQL database schema for a ecommerce website
+
+// Collection: users
+{
+  name: String,
+  email: String,
+  // Note: password should be handled by Firebase Authentication, not stored in Firestore
+  createdAt: Timestamp
+}
+
+// Collection: products
+{
+  name: String,
+  description: String,
+  price: Number,
+  stock: Number,
+  categoryId: String, 
+  image: String, // URL to image
+  brandId: String, 
+  createdAt: Timestamp
+}
+
+// Collection: brands
+{
+  name: String,
+  description: String,
+  createdAt: Timestamp
+}
+
+// Collection: orders
+{
+  userId: String, // Optional for guest checkout
+  guestEmail: String, // Optional for guest checkout
+  guestName: String, // Optional for guest checkout
+  // Shipping address
+  shippingAddress: {
+    street: String,
+    city: String,
+    state: String,
+    postalCode: String,
+    country: String
+  },
+  // Billing address
+  billingAddress: {
+    street: String,
+    city: String,
+    state: String,
+    postalCode: String,
+    country: String
+  },
+  totalPrice: Number,
+  orderDate: Timestamp,
+  status: String,
+  // Items as a subcollection or embedded array
+  items: [
+    {
+      productId: String,
+      quantity: Number,
+      price: Number
+    }
+  ],
+  createdAt: Timestamp
+}
+
+// Collection: categories
+{
+  name: String,
+  createdAt: Timestamp
+}
+
+// Collection: payments
+{
+  orderId: String,
+  userId: String, // Optional for guest checkout
+  guestEmail: String, // Optional for guest checkout
+  amount: Number,
+  paymentDate: Timestamp,
+  method: String,
+  status: String,
+  createdAt: Timestamp
+}
+
+// Collection: shoppingCarts
+{
+  userId: String, // Optional for guest checkout
+  sessionId: String, // For guest cart tracking
+  items: [
+    {
+      productId: String,
+      quantity: Number,
+      addedAt: Timestamp
+    }
+  ],
+  createdAt: Timestamp
+}
+
+// FireSQL Queries Examples (FireSQL is a SQL-like query language for Firestore)
+
+// Get all products in a specific category
+const categoryProducts = await fireSQL.query(`
+  SELECT * FROM products WHERE categoryId = '${categoryId}'
+`);
+
+// Get all orders for a user
+const userOrders = await fireSQL.query(`
+  SELECT * FROM orders WHERE userId = '${userId}'
+`);
+
+// Get cart items with product details (JOIN-like operation)
+const cartItems = await fireSQL.query(`
+  SELECT c.*, p.name, p.price, p.image 
+  FROM shoppingCarts c, products p 
+  WHERE c.userId = '${userId}' AND p.id = c.productId
+`);
