@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
+  <!-- Outer gray circle -->
+  <circle cx="256" cy="256" r="240" fill="#c0c0c0" />
+  <!-- Inner blue circle -->
+  <circle cx="256" cy="256" r="220" fill="#15355F" />
+  <!-- Orange F letter -->
+  <path d="M315 150 H200 V360 H240 V275 H295 V235 H240 V190 H315 Z" fill="#F47321" stroke="white" stroke-width="10" />
+</svg> 
